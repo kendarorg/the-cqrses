@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * Persistence layer for Dead Letter Queue items.
  * <p>
- * Implementations: {@code InMemoryDlqStore} (kf-es-memory).
  * Register an instance in GlobalRegistry so the buses can discover it:
  * <pre>
  *     GlobalRegistry.register(DlqStore.class, new InMemoryDlqStore());

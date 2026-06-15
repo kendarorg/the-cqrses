@@ -121,7 +121,7 @@ public class InMemoryScheduler implements Scheduler {
     public synchronized void start() {
         if (!running.compareAndSet(false, true)) return;
         scanSchedulables();
-        Thread t = new Thread(this::tickLoop, "kf-es-scheduler-" + THREAD_INDEX.incrementAndGet());
+        Thread t = new Thread(this::tickLoop, "kf-scheduler-" + THREAD_INDEX.incrementAndGet());
         t.setDaemon(true);
         tickThread = t;
         t.start();

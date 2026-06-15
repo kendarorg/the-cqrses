@@ -10,8 +10,6 @@ import java.util.List;
  * (via {@link ConnectionStorage}) and reuses it across calls, leaving commit/close to
  * the owning transaction boundary; connection pooling is the DataSource's job.
  * <p>
- * Ported from {@code olds/kf-es-cluster} — the only piece of that tree carried
- * forward — and stripped of every PostgreSQL-ism for the H2 &cap; MySQL target.
  */
 public interface Db {
 

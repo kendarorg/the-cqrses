@@ -8,10 +8,6 @@ gives you the same building blocks with no licence wall and no mandatory DI
 container: it runs as a plain library, or wired through Spring Boot, or
 distributed across a cluster, all from the same kernel.
 
-> The previous design (the `kf-es-*` tree) is preserved under `olds/` for
-> reference only. **It is no longer authoritative.** Do not depend on, import
-> from, or modify anything under `olds/`. The current modules are everything
-> outside that directory.
 
 ## Requirements & technology
 
@@ -170,5 +166,4 @@ production and switch it to `DEBUG` only while diagnosing query behaviour.
   topology, intentional trade-offs, and the full lifecycle rules.
 - **`docs/tricks.md`** — non-obvious implementation patterns (per-aggregate
   locking, the `-1` version sentinel, segment-tail reads, …). The *what* and
-  *why* are authoritative; cross-check class / method names against the current
-  `kf-core` tree, as parts of it still reference the legacy `kf-es-*` names.
+  *why* are authoritative;

@@ -26,13 +26,6 @@
     </properties>
 
     <modules>
-        <!--        <module>kf-es-commons</module>-->
-        <!--        <module>kf-es</module>-->
-        <!--        <module>kf-es-memory</module>-->
-        <!--        <module>kf-es-cluster</module>-->
-        <!--        <module>kf-es-spring</module>-->
-        <!--        <module>kf-es-dbscheduler</module>-->
-        <!--        <module>kf-es-samples</module>-->
         <module>kf-core</module>
         <module>kf-core-memory</module>
         <module>kf-core-db</module>

@@ -2,7 +2,7 @@
 
 This file documents the implementation tricks a Java developer would get
 wrong if they relied on Java intuition alone. Read it together with
-`CLAUDE.md` (which is authoritative on module layout, frozen-topology
+`CROSS_CUTTING.md` (which is authoritative on module layout, frozen-topology
 rules, lifecycle, and segment semantics).
 
 Whenever the code does something non-obvious — sentinel values, locking
@@ -10,7 +10,7 @@ patterns, reflection ordering, cluster-fencing — there should be an
 entry here. When you change one of those patterns, update this file in
 the same commit.
 
-Module legend (per `CLAUDE.md`):
+Module legend (per `CROSS_CUTTING.md`):
 
 - `kf-core` — kernel: annotations, buses, `ProcessingGroupsManager`,
   `EventStore`/`SagaStore`/`DlqStore`/`CheckpointStore` interfaces,
@@ -560,7 +560,7 @@ constructed on a dispatch thread.
 **Pre-warm is exempt from the frozen-topology rule.** It only
 `putIfAbsent`s into the registry's collaborator cache; it doesn't
 touch `consumers`, `processingGroupPolicies`, or `classRegistry`
-(see `CLAUDE.md`'s "lifecycle" section).
+(see `CROSS_CUTTING.md`'s "lifecycle" section).
 
 ### 3.4 `ProcessingGroupPolicyConfig` is per-(bus, group), set during setup
 
@@ -717,7 +717,7 @@ itself becomes unreachable and gets garbage-collected), not
 `bus.clear()`.
 
 If you `reset` a bus while traffic is in flight, you can drop
-messages mid-batch. The setup/runtime phase contract (`CLAUDE.md`)
+messages mid-batch. The setup/runtime phase contract (`CROSS_CUTTING.md`)
 exists specifically to forbid this.
 
 ### 3.11 `Bus.getConsumers` exposes a read-only view for operator tools

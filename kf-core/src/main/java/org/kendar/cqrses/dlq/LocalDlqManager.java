@@ -19,7 +19,7 @@ import java.util.UUID;
  * Node-local {@link DlqManager}. Resolves dead letters against the same frozen
  * bus topology that produced them — it only READS the bus's consumers/policy and
  * re-invokes; it never subscribes handlers, mutates the consumers map, or touches
- * {@code GlobalRegistry}, so it is safe to use at runtime (CLAUDE.md frozen-topology
+ * {@code GlobalRegistry}, so it is safe to use at runtime (CROSS_CUTTING.md frozen-topology
  * rule).
  *
  * <p><b>Retry mechanism.</b> The live worker for a blocked sequence cannot retry

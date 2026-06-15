@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Exercises the {@link DefaultDb#connection()} template-method seam from
- * CLAUDE.md's testing strategy: a subclass whose {@code connection()} throws
+ * CROSS_CUTTING.md's testing strategy: a subclass whose {@code connection()} throws
  * {@link SQLException} drives the error path with no Mockito and no
  * {@code --add-opens}. Every {@link Db} operation must surface a
  * {@link DbException}.

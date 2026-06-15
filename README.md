@@ -166,7 +166,7 @@ production and switch it to `DEBUG` only while diagnosing query behaviour.
 
 ## Further reading
 
-- **`CLAUDE.md`** — the authoritative design notes: module contracts, cluster
+- **`CROSS_CUTTING.md`** — the authoritative design notes: module contracts, cluster
   topology, intentional trade-offs, and the full lifecycle rules.
 - **`docs/tricks.md`** — non-obvious implementation patterns (per-aggregate
   locking, the `-1` version sentinel, segment-tail reads, …). The *what* and

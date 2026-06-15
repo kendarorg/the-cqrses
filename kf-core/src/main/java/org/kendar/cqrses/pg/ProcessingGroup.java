@@ -184,7 +184,7 @@ public class ProcessingGroup {
      * Fires when this command's batch crossed a multiple-of-N boundary in the
      * handling aggregate's stream — boundary-crossing (not modulo on the last
      * version) so a multi-event batch that jumps past a boundary still triggers.
-     * Best-effort by contract (CLAUDE.md §5): a snapshot failure is logged and
+     * Best-effort by contract (CROSS_CUTTING.md §5): a snapshot failure is logged and
      * never fails the command. The payload comes from the aggregate's
      * {@code getSnapshot()} (validated at registration); the aggregate-version
      * stamp is the batch's last assigned version, which exactly matches the

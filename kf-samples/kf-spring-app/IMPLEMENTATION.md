@@ -6,7 +6,7 @@ framework-related machinery: the CQRS/event-sourcing model, how Spring beans bri
 framework's static registry, the DLQ policy, the cluster-control plumbing, and the configuration
 knobs that drive it all.
 
-If you are new to the framework, read the root [`CLAUDE.md`](../../CLAUDE.md) first — it is the
+If you are new to the framework, read the root [`CROSS_CUTTING.md`](../../CROSS_CUTTING.md) first — it is the
 authoritative design overview of all the `kf-*` modules. This document is the worked example.
 
 ## What the starter does for you
@@ -157,7 +157,7 @@ Key behaviours:
   from the first request.
 
 For the cluster-wide semantics (leader election, partition distribution, at-least-once pull pump,
-handoff), see [`CLAUDE.md`](../../CLAUDE.md) and the [`kf-cluster-it` README](../kf-cluster-it/README.md).
+handoff), see [`CROSS_CUTTING.md`](../../CROSS_CUTTING.md) and the [`kf-cluster-it` README](../kf-cluster-it/README.md).
 
 ## Configuration reference (`src/main/resources/application.yml`)
 

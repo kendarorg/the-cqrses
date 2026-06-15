@@ -58,7 +58,7 @@ a Spring app these come from `kf.cluster.*` / `kf.liveness.port` (see `kf-spring
 
 ## Leader tick & worker lifecycle
 
-See the **Cluster topology** section of the root `CLAUDE.md` for the full leader
+See the **Cluster topology** section of the root `CROSS_CUTTING.md` for the full leader
 tick (lease → live set → dead-node confirmation → stability gate → minimal-move
 assignment → notify/GC) and the crash / DB-blind / lost-leadership failure modes.
 The key safety property: a gaining node cannot start a second pump until the

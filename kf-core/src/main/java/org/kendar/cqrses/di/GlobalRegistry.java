@@ -59,7 +59,7 @@ public class GlobalRegistry {
      * {@code setProcessingGroupPolicy}, {@code SegmentCalculator.setSegments}) call
      * this so a mutation after start surfaces as a loud, located
      * {@link IllegalStateException} instead of the silent publish-vs-subscribe data
-     * race CLAUDE.md documents as "undefined behaviour".
+     * race CROSS_CUTTING.md documents as "undefined behaviour".
      */
     public static void assertNotStarted(String operation) {
         if (started) {

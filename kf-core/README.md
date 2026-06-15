@@ -46,7 +46,7 @@ the SPI the cluster module drives.
   on the buses through `GlobalRegistry`. `GlobalRegistry.start()/stop()` walk and
   start/stop the `CommandBus` and `EventBus`.
 
-> **Lifecycle rule (see root `CLAUDE.md`).** Setup and runtime must not overlap.
+> **Lifecycle rule (see root `CROSS_CUTTING.md`).** Setup and runtime must not overlap.
 > Once the first `send`/`publish` fires, the topology — handler maps, per-group
 > policy, interceptor chain, `GlobalRegistry` bindings, `SEGMENTS` — is **frozen**.
 
@@ -55,7 +55,7 @@ the SPI the cluster module drives.
 Reflection-based handler discovery, a static `GlobalRegistry`, an abstract `Bus`
 with shared state, best-effort snapshots, and the `-1` aggregate-version
 sentinel are all **deliberate** — see the "Intentional trade-offs" section of
-the root `CLAUDE.md` before "fixing" any of them.
+the root `CROSS_CUTTING.md` before "fixing" any of them.
 
 ## Build & test
 

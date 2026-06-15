@@ -332,7 +332,7 @@ class JdbcEventStoreCoalescerTest extends AbstractJdbcTest {
     /**
      * A {@link Db} that delegates to the test database but hands out connections
      * whose {@code commit()} throws once when armed — the injected transient
-     * failure for the fallback path. Template-method seam, no mocks (CLAUDE.md
+     * failure for the fallback path. Template-method seam, no mocks (CROSS_CUTTING.md
      * testing strategy).
      */
     private static final class FailingCommitDb implements Db {

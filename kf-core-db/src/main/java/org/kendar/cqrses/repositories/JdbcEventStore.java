@@ -572,7 +572,7 @@ public class JdbcEventStore extends BaseEventStore {
         } else {
             // Stamp the current event-stream max — the highest event already folded
             // into the state being snapshotted. No per-aggregate lock: snapshots are
-            // best-effort (CLAUDE.md §5) and the old synchronized never protected
+            // best-effort (CROSS_CUTTING.md §5) and the old synchronized never protected
             // this committed-state read against a racing append anyway.
             Long max = db.queryForObject(
                     "SELECT COALESCE(MAX(sequence), -1) FROM event_entry WHERE aggregate_id = ?",

@@ -1,0 +1,2 @@
+org.kendar.cqrses.spring.KfAutoConfiguration
+org.kendar.cqrses.spring.observability.KfObservabilityAutoConfiguration

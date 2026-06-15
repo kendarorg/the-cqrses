@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # File-backed H2 in MySQL mode: Axon event store + read model survive restarts (demo default).
+    # The cluster run overrides this with the shared MySQL URL via PFM_DATASOURCE_URL.
+    url: ${PFM_DATASOURCE_URL:jdbc:h2:file:./data/axonpfm;MODE=MySQL;DB_CLOSE_DELAY=-1}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+axon:
+  axonserver:
+    # Server-less: shared MySQL only (JPA event store + JDBC token store). No Axon Server.
+    enabled: false
+  metrics:
+    micrometer:
+      dimensional: true
+    auto-configuration:
+      enabled: true
+  timeout:
+    # No per-handler timeout interceptor — keeps long flood handlers from being killed (closer to kf).
+    enabled: false
+  eventhandling:
+    processors:
+      # Each projection group is a POOLED STREAMING processor claiming `segments` segments in the
+      # shared JDBC token store — the unit Axon distributes across nodes (the analog of kf's
+      # per-segment ownership). A dead node's claims expire and survivors steal them.
+      users:
+        mode: pooled
+        initial-segment-count: ${pfm.segments:6}
+      ledger:
+        mode: pooled
+        initial-segment-count: ${pfm.segments:6}
+
+# Our own (framework-neutral) cluster knobs — separate namespace from Axon's axon.*.
+pfm:
+  segments: ${PFM_SEGMENTS:6}
+  cluster:
+    mode: ${PFM_CLUSTER_MODE:false}
+    node-id: ${PFM_CLUSTER_NODE_ID:}
+    host: ${PFM_CLUSTER_HOST:}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    tags:
+      application: axon-pfm
+
+logging:
+  level:
+    org.axonframework: INFO

@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+kf:
+  # Partition/segment count — set before any bean by the starter's EnvironmentPostProcessor.
+  segments: 4
+  liveness:
+    # Mandatory in the starter; only consumed when the cluster is enabled (it is not here).
+    port: 8070
+  cluster:
+    # kf-cluster is on the classpath but OFF: single-node kf-core-db is the correct demo mode.
+    enabled: false
+  scan:
+    base-packages: org.kendar.pfm
+  # Give the projection groups the default EventBus policy.
+  processing-groups:
+    - users
+    - ledger
+
+pfm:
+  datasource:
+    # File-backed H2 in MySQL mode: event store + read model survive restarts.
+    url: jdbc:h2:file:./data/pfm;MODE=MySQL;DB_CLOSE_DELAY=-1
+
+# Actuator: expose the Prometheus scrape endpoint so the cluster IT (and any
+# real deployment) can collect the kf.* hot-path timers. health is handy too.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    tags:
+      application: pfm
+
+logging:
+  level:
+    org.kendar: ERROR
+    org.kendar.cqrses: INFO
+    # Per-event projection pump + dispatch diagnostics (pump DISPATCH/SKIP, dispatchProjection
+    # no-op reasons) for the cluster handoff IT.
+    org.kendar.cqrses.pg.SegmentProcessor: ERROR
+    org.kendar.cqrses.pg.ProcessingGroupsManager: ERROR

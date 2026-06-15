@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.kendar.cqrses</groupId>
+        <artifactId>kendar-framework</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kf-spring</artifactId>
+
+    <!--
+      Spring Boot 3.4 starter / auto-configuration for the kf-core-db single-node
+      stack plus an optional kf-cluster node. This is the ONLY module on the Spring
+      classpath: kf-core / kf-core-db / kf-cluster stay POJO / java.sql / JDK-only.
+      The Spring Boot version is inherited from the root spring-boot-starter-parent;
+      no sibling module declares a Spring dependency, so none sees a Spring-managed
+      version.
+    -->
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.kendar.cqrses</groupId>
+            <artifactId>kf-core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kendar.cqrses</groupId>
+            <artifactId>kf-core-db</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kendar.cqrses</groupId>
+            <artifactId>kf-cluster</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--
+          Micrometer is OPTIONAL: kf-spring compiles MicrometerTimers /
+          KfObservabilityAutoConfiguration against it, but the dependency is
+          non-transitive. An app only gets the timers if it pulls Micrometer
+          itself (e.g. a registry like micrometer-registry-prometheus, usually
+          via spring-boot-starter-actuator); otherwise the @ConditionalOnClass
+          gate skips the whole auto-config and the framework stays on the no-op.
+        -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.kendar.cqrses</groupId>
+        <artifactId>kendar-framework</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>axon-spring-app</artifactId>
+
+    <!--
+      Axon 4.13 counterpart of kf-spring-app: the SAME personal-finance app + REST surface + read
+      model, built on open-source Axon Framework (server-less: shared MySQL only, NO Axon Server).
+      Exists so kf-samples/axon-cluster-it can run the identical flood/handoff/consistency scenarios
+      against Axon for a head-to-head performance comparison. Distribution of projection work across
+      nodes is by Axon's token-store segment claiming (PooledStreamingEventProcessor); there is no
+      leader. To make the kf cluster-IT's Prometheus report render unchanged, this app emits the SAME
+      kf.* meters via the KfMeters sink hooked into Axon's command/event/store/DLQ paths. See
+      plans/axon-comparison.md.
+    -->
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- Server-less: drop the Axon Server connector so Axon uses the JPA event store
+                     + JDBC token store on the shared MySQL (matches kf's substrate). -->
+                <exclusion>
+                    <groupId>org.axonframework</groupId>
+                    <artifactId>axon-server-connector</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Dimensional Micrometer monitors on the buses (axon.metrics.auto-configuration). -->
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-micrometer</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Axon's JPA event/token/saga/dead-letter stores need an EntityManagerFactory. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Observability: actuator exposes /actuator/prometheus; the registry renders both the
+             auto-configured axon.* meters and the kf.* meters KfMeters records. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- SQL-timing hook: wraps the datasource so every statement is timed and bucketed into the
+             kf.sql.execute{category="verb:table"} meter, matching kf's Db-wrapper instrumentation. -->
+        <dependency>
+            <groupId>net.ttddyy</groupId>
+            <artifactId>datasource-proxy</artifactId>
+            <version>1.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Shared-MySQL cluster run (kf-samples/axon-cluster-it). -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

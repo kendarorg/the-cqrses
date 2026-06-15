@@ -1,0 +1,81 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    margin: 0;
+    padding: 2rem 1rem;
+}
+
+main { max-width: 880px; margin: 0 auto; }
+
+h1 { margin: 0 0 .25rem; }
+.sub { color: #94a3b8; margin-top: 0; }
+
+.card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.25rem;
+}
+
+.hidden { display: none; }
+
+.hint, .msg { color: #94a3b8; font-size: .9rem; }
+.msg.error { color: #f87171; }
+.msg.ok { color: #4ade80; }
+
+input, select, button {
+    font-size: 1rem;
+    padding: .55rem .7rem;
+    border-radius: 8px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+button {
+    background: #2563eb;
+    border-color: #2563eb;
+    cursor: pointer;
+}
+button:hover { background: #1d4ed8; }
+
+button.link {
+    background: none;
+    border: none;
+    color: #93c5fd;
+    text-decoration: underline;
+    padding: 0;
+}
+
+form { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.op-form select { width: 90px; }
+.op-form input[type=number] { width: 130px; }
+
+.row { display: flex; gap: 1.5rem; }
+.row.between { justify-content: space-between; align-items: center; }
+.two-col > div { flex: 1; }
+
+.totals { display: flex; gap: 1rem; margin: 1rem 0 1.5rem; }
+.total {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #0f172a;
+    border: 1px solid #334155;
+}
+.total .label { color: #94a3b8; font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; }
+.total .value { font-size: 1.6rem; font-weight: 700; }
+.total.in .value { color: #4ade80; }
+.total.out .value { color: #f87171; }
+.total.net .value { color: #60a5fa; }
+
+table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid #334155; font-size: .9rem; }
+th { color: #94a3b8; font-weight: 600; }

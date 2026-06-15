@@ -1,0 +1,16 @@
+# Scrape config for the axon cluster-it Prometheus container. Shares the Docker network with the
+# three axon-spring-app nodes, reaching them by network alias + container port (8080). The kf.*
+# meters come from the app's KfMeters hooks via /actuator/prometheus (and Axon's own axon.* meters
+# ride alongside, exposed by the axon-micrometer auto-configuration).
+global:
+  scrape_interval: 2s
+  evaluation_interval: 2s
+
+scrape_configs:
+  - job_name: axon
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'node1:8080'
+          - 'node2:8080'
+          - 'node3:8080'

@@ -1,0 +1,16 @@
+# Scrape config for the cluster-it Prometheus container. It shares the Docker
+# network with the three kf-spring-app nodes, so it reaches them by their network
+# alias + container port (8080), NOT the pinned host ports. The kf.* meters come
+# from kf-spring's MicrometerTimers via /actuator/prometheus.
+global:
+  scrape_interval: 2s
+  evaluation_interval: 2s
+
+scrape_configs:
+  - job_name: kf
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'node1:8080'
+          - 'node2:8080'
+          - 'node3:8080'

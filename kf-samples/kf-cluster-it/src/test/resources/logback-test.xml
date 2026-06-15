@@ -1,0 +1,37 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{0} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+      Capture EVERYTHING (harness + all three node containers + testcontainers) to a single file.
+      Unlike the live console stream, the file is plain UTF-8 written one full line at a time, so it
+      is immune to the terminal mangling you see on the live docker stream (stray ANSI/control bytes
+      rendering as "one char then blank lines"). Truncated at JVM start; cleaned by `mvn clean`.
+      Tail it during a run with:  tail -f target/kf-cluster-it.log
+    -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>target/kf-cluster-it.log</file>
+        <append>false</append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{0} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Stream each node container's stdout (via Slf4jLogConsumer) so app startup errors are visible. -->
+    <logger name="node1" level="INFO"/>
+    <logger name="node2" level="INFO"/>
+    <logger name="node3" level="INFO"/>
+    <logger name="cluster-it" level="INFO"/>
+    <logger name="org.testcontainers" level="INFO"/>
+    <logger name="com.github.dockerjava" level="WARN"/>
+
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

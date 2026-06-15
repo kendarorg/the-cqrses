@@ -1,0 +1,92 @@
+package org.kendar.cqrses.scheduler;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.function.BooleanSupplier;
+
+/**
+ * No thread lock wait
+ */
+@SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
+public class Sleeper {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Sleeper.class);
+    /**
+     * Runs a synchronized based wait mechanism instead of sleep
+     *
+     * @param timeoutMillis Timeout in ms
+     */
+    @SuppressWarnings("CatchMayIgnoreException")
+    public static void sleep(long timeoutMillis) {
+
+        try {
+            if (timeoutMillis == 0) {
+                Thread.onSpinWait();
+                return;
+            }
+            Object obj = new Object();
+            synchronized (obj) {
+                obj.wait(timeoutMillis);
+            }
+        } catch (Exception ex) {
+
+        }
+    }
+
+    @SuppressWarnings("CatchMayIgnoreException")
+    public static void sleep(long timeoutMillis, BooleanSupplier booleanSupplier) {
+        try {
+            Object obj = new Object();
+
+            var times = (int) timeoutMillis;
+            var counter = 100;
+            if (times <= 100) counter = 2;
+            for (int i = 0; i < timeoutMillis; i += counter) {
+                synchronized (obj) {
+                    obj.wait(counter);
+                }
+                if (booleanSupplier.getAsBoolean()) {
+                    return;
+                }
+            }
+
+        } catch (Exception ex) {
+
+        }
+        throw new RuntimeException("Sleeper sleep timed out");
+    }
+
+    public static void sleepNoException(long timeoutMillis, BooleanSupplier booleanSupplier) {
+        sleepNoException(timeoutMillis, booleanSupplier, false);
+    }
+
+    public static void sleepNoException(long timeoutMillis, BooleanSupplier booleanSupplier, boolean silent) {
+        try {
+            Object obj = new Object();
+            var times = (int) timeoutMillis / 100;
+            for (int i = 0; i < 100; i++) {
+                synchronized (obj) {
+                    obj.wait(times);
+                }
+                if (booleanSupplier.getAsBoolean()) {
+                    return;
+                }
+            }
+
+        } catch (Exception ignored) {
+
+        }
+        if (!silent) {
+            LOGGER.warn("Sleeper sleep timed out with no answer");
+        }
+    }
+
+    /**
+     * Give control to other threads
+     */
+    public static void yield() {
+        Thread.onSpinWait();
+        //Sleeper.sleep(1);
+    }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+    <h1>💰 Personal Finance Manager</h1>
+    <p class="sub">A kf-framework CQRS/ES demo — kf-core-db backend, clustering off.</p>
+
+    <section id="login-card" class="card">
+        <h2>Login</h2>
+        <p class="hint">Username only. If you're new, an account is created automatically.</p>
+        <form id="login-form">
+            <input id="username" type="text" placeholder="username" autocomplete="off" required>
+            <button type="submit">Enter</button>
+        </form>
+        <p id="login-msg" class="msg"></p>
+    </section>
+
+    <section id="app-card" class="card hidden">
+        <div class="row between">
+            <h2>Hello, <span id="who"></span></h2>
+            <button id="logout" class="link">switch user</button>
+        </div>
+
+        <div class="totals">
+            <div class="total in"><span class="label">In</span><span id="t-in" class="value">0</span></div>
+            <div class="total out"><span class="label">Out</span><span id="t-out" class="value">0</span></div>
+            <div class="total net"><span class="label">Net</span><span id="t-net" class="value">0</span></div>
+        </div>
+
+        <h3>Add operation</h3>
+        <form id="op-form" class="op-form">
+            <select id="op-type">
+                <option value="IN">IN</option>
+                <option value="OUT">OUT</option>
+            </select>
+            <input id="op-amount" type="number" min="1" step="1" placeholder="amount" required>
+            <input id="op-tag" type="text" placeholder="tag (e.g. salary)" autocomplete="off" required>
+            <button type="submit">Record</button>
+        </form>
+        <p id="op-msg" class="msg"></p>
+
+        <div class="row two-col">
+            <div>
+                <h3>Recent operations</h3>
+                <table id="ops-table">
+                    <thead>
+                    <tr><th>Type</th><th>Amount</th><th>Tag</th><th>When</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div>
+                <h3>By tag</h3>
+                <table id="tags-table">
+                    <thead>
+                    <tr><th>Tag</th><th>In</th><th>Out</th><th>Net</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

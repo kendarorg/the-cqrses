@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>org.kendar.cqrses</groupId>
+    <artifactId>kendar-framework</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>25</java.version>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hazelcast.version>5.5.0</hazelcast.version>
+        <h2.version>2.3.232</h2.version>
+    </properties>
+
+    <modules>
+        <!--        <module>kf-es-commons</module>-->
+        <!--        <module>kf-es</module>-->
+        <!--        <module>kf-es-memory</module>-->
+        <!--        <module>kf-es-cluster</module>-->
+        <!--        <module>kf-es-spring</module>-->
+        <!--        <module>kf-es-dbscheduler</module>-->
+        <!--        <module>kf-es-samples</module>-->
+        <module>kf-core</module>
+        <module>kf-core-memory</module>
+        <module>kf-core-db</module>
+        <module>kf-test</module>
+        <module>kf-cluster</module>
+        <module>kf-spring</module>
+        <module>kf-samples/kf-spring-app</module>
+        <module>kf-samples/kf-cluster-it</module>
+        <module>kf-samples/axon-spring-app</module>
+        <module>kf-samples/axon-cluster-it</module>
+        <module>kf-integration</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Axon 4.13 comparison samples (kf-samples/axon-*): open-source Axon,
+                 server-less (shared MySQL only). See plans/axon-comparison.md. -->
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-bom</artifactId>
+                <version>4.13.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>1.5.33</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.5.33</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wiremock</groupId>
+                <artifactId>wiremock</artifactId>
+                <version>3.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.uuid</groupId>
+                <artifactId>java-uuid-generator</artifactId>
+                <version>5.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

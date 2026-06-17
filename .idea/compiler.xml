@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="kf-core" />
+        <module name="kf-cluster-it" />
+        <module name="axon-spring-app" />
+        <module name="axon-cluster-it" />
+        <module name="kf-spring" />
+        <module name="kf-core-db" />
+        <module name="kf-core-memory" />
+        <module name="kf-spring-app" />
+        <module name="kf-integration" />
+        <module name="kf-test" />
+        <module name="kf-cluster" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="axon-cluster-it" options="-parameters" />
+      <module name="axon-spring-app" options="-parameters" />
+      <module name="kf-cluster" options="-parameters" />
+      <module name="kf-cluster-it" options="-parameters" />
+      <module name="kf-core" options="-parameters" />
+      <module name="kf-core-db" options="-parameters" />
+      <module name="kf-core-memory" options="-parameters" />
+      <module name="kf-integration" options="-parameters" />
+      <module name="kf-spring" options="-parameters" />
+      <module name="kf-spring-app" options="-parameters" />
+      <module name="kf-test" options="-parameters" />
+    </option>
+  </component>
+</project>
